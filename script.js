@@ -15,6 +15,12 @@ function writePassword() {
 // TODO: Write code so the generatePassword returns a string for a password
 // which meets the requirements in the instructions.
 
+// These are the characters I will choose from
+var lowerCaseValue = "abcdefghijklmnopqrstuvwxyz";
+var upperCaseValue = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var numericValue = "0123456789";
+var specialCharValue = "!@#$%^&*";
+
 function generatePassword() {
     return "";
 }
