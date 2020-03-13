@@ -26,11 +26,15 @@ var specialCharValue = "!@#$%^&*";
 function generatePassword() {
 
   // prompt user for a password length
-  var passLength = parseInt(prompt("How many characters should your password be?"));
+  var passLength = parseInt(prompt("How many characters should your password be? \n(must be between 8 and 128 characters)"));
   // Check if length provided is between 8 and 128
-  if (passLength < 8 || passLength > 128 || isNaN(passLength)) {
+  if (passLength < 8 || passLength > 128) {
     alert("Password must be between 8 and 128 characters");
     // return nothing, end execution. 
+    return "";
+  }
+  else if (isNaN(passLength)){
+    alert("You can only enter numbers for password length!");
     return "";
   }
   // confirm if the user would like to use lower, upper, number, special
@@ -48,23 +52,28 @@ function generatePassword() {
   }
 
   // Declare a variable to hold the string of available characters
-  var availCharacterSets = "";
+  var availCharacterSets = [];
+  var availCharacterSetsString = "";
 
   // Check if each character type is true, if true then add string to availCharacterSets 
   if (userLowerCase) {
-    availCharacterSets += lowerCaseValue;
+    availCharacterSets.push(lowerCaseValue);
+    availCharacterSetsString += lowerCaseValue
   }
 
   if (userUpperCase) {
-    availCharacterSets += upperCaseValue;
+    availCharacterSets.push(upperCaseValue);
+    availCharacterSetsString += upperCaseValue
   }
 
   if (userNumeric) {
-    availCharacterSets += numericValue;
+    availCharacterSets.push(numericValue);
+    availCharacterSetsString += numericValue
   }
 
   if (userSpecialChar) {
-    availCharacterSets += specialCharValue;
+    availCharacterSets.push(specialCharValue);
+    availCharacterSetsString += specialCharValue
   }
 
   // Declare variable for final password
@@ -72,12 +81,19 @@ function generatePassword() {
   // In a For loop, use math.random to generate a random index number and save to randomIndex
   // Then use the number generated to select a character from the array availCharacterSets and save to randomCharacter
   // Add randomCharater to password and run the loop until the user entered length is reached. 
-  for (var i = 0; i < passLength; i++) {
-    var randomIndex = Math.floor(Math.random() * availCharacterSets.length);
-    var randomCharacter = availCharacterSets[randomIndex];
+
+  // availCharacterSets = [lowerCaseValue, numericValue, specialCharValue, ]
+
+  for (var i = 0; i < availCharacterSets.length; i++) {
+    var chosenArray = availCharacterSets[i];
+    var chosenArrayIndex = Math.floor(Math.random() * chosenArray.length);
+    var randomCharacter = chosenArray[chosenArrayIndex];
     password += randomCharacter;
-
   }
-
+  for (var j = password.length; j < passLength; j++) {
+    var randomIndex = Math.floor(Math.random() * availCharacterSetsString.length);
+    var randomCharacter = availCharacterSetsString[randomIndex];
+    password += randomCharacter;
+   }
   return password;
 }
